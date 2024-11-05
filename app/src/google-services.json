@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "417477233686",
+    "project_id": "snapnourish-fc9dc",
+    "storage_bucket": "snapnourish-fc9dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417477233686:android:f7b0261119beb17fa5f937",
+        "android_client_info": {
+          "package_name": "com.cs407.snapnourish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8xvFfgcUHz4XnJ8E3e86Ic5VvXduQbBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
