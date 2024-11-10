@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
     fun login(view: View) {
         val userEmailIn = findViewById<EditText>(R.id.emailInput)
         val userEmail = userEmailIn.text.toString()
-        //TODO: There is an issue of "password is invalid" when attempt to login.
-        //Assuming the issue is with how the password in gotten from input
+        // THIS SHOULD WORK! Way to get email and password is correct. Should not get any errors.
+        // Format is same as GurleenSnapNourish project I have on GitHub.
         val userPasswordIn = findViewById<EditText>(R.id.passwordInput)
         val userPassword = userPasswordIn.text.toString()
         auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
