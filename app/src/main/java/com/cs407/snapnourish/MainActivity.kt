@@ -31,8 +31,13 @@ class MainActivity : AppCompatActivity() {
         val userPassword = userPasswordIn.text.toString()
         auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
             if(task.isSuccessful) {
+                //TODO: Go to main screen on successful login
                 //val intent = Intent(this)
+                //startActivity(intent)
+                finish()
             }
+        }.addOnFailureListener { expection ->
+            Toast.makeText(applicationContext, expection.localizedMessage, Toast.LENGTH_LONG).show()
         }
     }
 
