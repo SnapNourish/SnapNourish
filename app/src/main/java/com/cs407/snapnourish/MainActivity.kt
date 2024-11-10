@@ -24,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         //var auth = FirebaseAuth.getInstance()
     }
     var auth = FirebaseAuth.getInstance()
+
+    /**
+     * This function gets the user's email and password to login. If registered and entered correctly,
+     * user will be sent to the main menu screen. On failure, a message will appear.
+     */
     fun login(view: View) {
         val userEmailIn = findViewById<EditText>(R.id.emailInput)
         val userEmail = userEmailIn.text.toString()
@@ -36,9 +41,17 @@ class MainActivity : AppCompatActivity() {
                 //startActivity(intent)
                 finish()
             }
-        }.addOnFailureListener { expection ->
-            Toast.makeText(applicationContext, expection.localizedMessage, Toast.LENGTH_LONG).show()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
         }
+    }
+
+    /**
+     * This function will send the user to the registration page if they press the button.
+     */
+    fun goToSignUp(view: View) {
+        //val intent = Intent(this)
+        //startActivity(this)
     }
 
 }
