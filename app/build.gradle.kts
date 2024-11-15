@@ -51,5 +51,4 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     //Dependencies for Firebase products
     implementation("com.google.firebase:firebase-auth")
-    implementation(kotlin("script-runtime"))
 }
