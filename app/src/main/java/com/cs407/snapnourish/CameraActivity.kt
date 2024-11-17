@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -13,6 +15,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -23,12 +26,33 @@ class CameraActivity : ComponentActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
     private val imageUploader = ImageUploader()
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
+//        val email = "testuser@example.com" // tester email
+//        val password = "testpw"      // tester password
+//
+//        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    Log.d("CameraActivity", "Forced login successful")
+//                    Toast.makeText(this, "Forced login successful", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Log.e("CameraActivity", "Forced login failed: ${task.exception?.message}")
+//                    Toast.makeText(this, "Forced login failed", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+
         setContentView(R.layout.activity_camera)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+        // ProgressBar to show upload progress
+        progressBar = findViewById(R.id.uploadProgressBar)
+        progressBar.visibility = ProgressBar.INVISIBLE // initially hidden
 
         val previewView = findViewById<PreviewView>(R.id.viewFinder)
         startCamera(previewView)
@@ -69,6 +93,13 @@ class CameraActivity : ComponentActivity() {
     }
 
     private fun takePhoto() {
+        // Check if the user is logged in
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            Log.e("CameraActivity", "User not logged in!")
+            Toast.makeText(this, "Please log in before uploading.", Toast.LENGTH_SHORT).show()
+            return // Stop the photo-taking process
+        }
+
         val photoFile = File(
             externalMediaDirs.firstOrNull(),
             "captured_image_${System.currentTimeMillis()}.jpg"
@@ -84,11 +115,13 @@ class CameraActivity : ComponentActivity() {
                     val savedUri = Uri.fromFile(photoFile)
                     Log.d("CameraActivity", "Image saved: $savedUri")
 
+                    // show progressbar when uploading photo
+                    progressBar.visibility = ProgressBar.VISIBLE
                     uploadPhotoToFirebase(savedUri)
 
-                    val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
-                    intent.putExtra("IMAGE_URI", savedUri)
-                    startActivity(intent)
+//                    val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
+//                    intent.putExtra("IMAGE_URI", savedUri)
+//                    startActivity(intent)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -101,10 +134,18 @@ class CameraActivity : ComponentActivity() {
     // helper method to call uploadPhotoAndSaveUrl from imageUploader
     private fun uploadPhotoToFirebase(fileUri: Uri){
         imageUploader.uploadPhotoAndSaveUrl(fileUri){ success->
+            progressBar.visibility = ProgressBar.INVISIBLE // hide ProgressBara after upload
             if(success){
                 Log.d("CameraActivity", "Photo uploaded to Firebase successfully")
+                Toast.makeText(this, "Photo uploaded successfully!", Toast.LENGTH_SHORT).show()
+
+                // Navigate to TransitionActivity after upload
+                val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
+                intent.putExtra("IMAGE_URI", fileUri)
+                startActivity(intent)
             }else{
                 Log.e("CameraActivity", "Photo upload to Firebase failed")
+                Toast.makeText(this, "Failed to upload photo.", Toast.LENGTH_SHORT).show()
             }
         }
     }

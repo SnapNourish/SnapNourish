@@ -11,12 +11,14 @@ class ImageUploader {
 
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
-
+    private val auth = FirebaseAuth.getInstance()
 
     // Function to upload photo in Firebase Storage and save its url
     fun uploadPhotoAndSaveUrl(fileUri: Uri, onComplete: (Boolean) -> Unit) {
+        // get the current user's UID
+        val uid = auth.currentUser?.uid ?: return onComplete(false)
         // generate unique filename for each image
-        val fileName = "images/${UUID.randomUUID()}.jpg"
+        val fileName = "users/$uid/images/${UUID.randomUUID()}.jpg"
         // reference to the file path in Firebase Storage
         val storageRef = storage.reference.child(fileName)
 
@@ -25,7 +27,7 @@ class ImageUploader {
             // if upload is successful, get the download URL
             storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
                 // save the download URL in Firebase
-                savePhotoUrlToStorage(downloadUri.toString(), onComplete)
+                savePhotoUrlToStorage(uid, downloadUri.toString(), onComplete)
             }
         }
             .addOnFailureListener{ e->
@@ -35,11 +37,12 @@ class ImageUploader {
     }
 
     // Function to save the photo's download URL in Firebase
-    private fun savePhotoUrlToStorage(downloadUrl: String, onComplete: (Boolean) -> Unit){
+    private fun savePhotoUrlToStorage(uid: String, downloadUrl: String, onComplete: (Boolean) -> Unit){
         // Data to be saved in Firestore, including URL and timestamp
         val photoData = hashMapOf(
             "photoUrl" to downloadUrl,
-            "timestmap" to System.currentTimeMillis()
+            "timestmap" to System.currentTimeMillis(),
+            "uid" to uid
         )
 
         // add the photo data to the "photos" collection in Firestore
