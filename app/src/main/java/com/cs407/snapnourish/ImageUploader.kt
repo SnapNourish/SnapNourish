@@ -2,14 +2,16 @@ package com.cs407.snapnourish
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
-class ImageUploaderHyeWon {
+class ImageUploader {
 
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
+
 
     // Function to upload photo in Firebase Storage and save its url
     fun uploadPhotoAndSaveUrl(fileUri: Uri, onComplete: (Boolean) -> Unit) {
