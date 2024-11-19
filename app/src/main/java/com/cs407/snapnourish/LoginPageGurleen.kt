@@ -21,10 +21,10 @@ class LoginPageGurleen : AppCompatActivity() {
         //    insets
         //}
         //var auth = FirebaseAuth.getInstance()
-        findViewById<Button>(R.id.signupButton).setOnClickListener {
-            val intent = Intent(this, SignUp::class.java)
-            startActivity(intent)
-        }
+        //findViewById<Button>(R.id.signupButton).setOnClickListener {
+        //    val intent = Intent(this, SignUp::class.java)
+        //    startActivity(intent)
+        //}
     }
     var auth = FirebaseAuth.getInstance()
 
