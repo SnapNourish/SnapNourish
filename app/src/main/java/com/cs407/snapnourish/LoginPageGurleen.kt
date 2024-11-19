@@ -8,7 +8,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class LoginPageGurleen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +22,16 @@ class LoginPageGurleen : AppCompatActivity() {
         //    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
         //    insets
         //}
-        //var auth = FirebaseAuth.getInstance()
+        //lateinit var auth: FirebaseAuth
+        //auth = Firebase.auth
         //findViewById<Button>(R.id.signupButton).setOnClickListener {
         //    val intent = Intent(this, SignUp::class.java)
         //    startActivity(intent)
         //}
     }
     var auth = FirebaseAuth.getInstance()
+    //var auth: FirebaseAuth = Firebase.auth
+    //auth = Firebase.auth
 
     /**
      * This function gets the user's email and password to login. If registered and entered correctly,
@@ -39,7 +44,7 @@ class LoginPageGurleen : AppCompatActivity() {
         // Format is same as GurleenSnapNourish project I have on GitHub.
         val userPasswordIn = findViewById<EditText>(R.id.passwordInput)
         val userPassword = userPasswordIn.text.toString()
-        auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
+        auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener(this) { task ->
             if(task.isSuccessful) {
                 //TODO: Go to main screen on successful login
                 val intent= Intent(this,Home::class.java)

@@ -63,6 +63,6 @@ dependencies {
     //Dependencies for Firebase products
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth-ktx:20.0.2")
+    //implementation("com.google.firebase:firebase-auth-ktx:20.0.2")
 
 }
