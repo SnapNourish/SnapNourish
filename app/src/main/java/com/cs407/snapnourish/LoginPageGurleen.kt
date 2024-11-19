@@ -26,7 +26,7 @@ class LoginPageGurleen : AppCompatActivity() {
         //    startActivity(intent)
         //}
     }
-    var authenticateLogin = FirebaseAuth.getInstance()
+    var auth = FirebaseAuth.getInstance()
 
     /**
      * This function gets the user's email and password to login. If registered and entered correctly,
@@ -39,19 +39,13 @@ class LoginPageGurleen : AppCompatActivity() {
         // Format is same as GurleenSnapNourish project I have on GitHub.
         val userPasswordIn = findViewById<EditText>(R.id.passwordInput)
         val userPassword = userPasswordIn.text.toString()
-        authenticateLogin.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { task ->
+        auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
             if(task.isSuccessful) {
-                val intent = Intent(this,Home::class.java)
+                //TODO: Go to main screen on successful login
+                val intent= Intent(this,Home::class.java)
                 startActivity(intent)
                 finish()
-        }
-        //autherticateLogin.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
-            //if(task.isSuccessful) {
-                //TODO: Go to main screen on successful login
-           //     val intent= Intent(this,Home::class.java)
-            //    startActivity(intent)
-            //    finish()
-            //}
+            }
         }.addOnFailureListener { exception ->
             Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
         }
@@ -61,10 +55,6 @@ class LoginPageGurleen : AppCompatActivity() {
      * This function will send the user to the registration page if they press the button.
      */
     fun goToSignUp(view: View) {
-        //findViewById<Button>(R.id.signupButton).setOnClickListener {
-        //    val intent = Intent(this, SignUp::class.java)
-        //    startActivity(intent)
-        //}
         val intent = Intent(this,SignUp::class.java)
         startActivity(intent)
 
