@@ -55,8 +55,8 @@ class LoginPageGurleen : AppCompatActivity() {
      * This function will send the user to the registration page if they press the button.
      */
     fun goToSignUp(view: View) {
-        //val intent = Intent(this,SignUp::class.java)
-        //startActivity(intent)
+        val intent = Intent(this,SignUp::class.java)
+        startActivity(intent)
 
     }
 
