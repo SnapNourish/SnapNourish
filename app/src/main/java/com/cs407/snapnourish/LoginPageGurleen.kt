@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +21,10 @@ class LoginPageGurleen : AppCompatActivity() {
         //    insets
         //}
         //var auth = FirebaseAuth.getInstance()
+        findViewById<Button>(R.id.signupButton).setOnClickListener {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+        }
     }
     var auth = FirebaseAuth.getInstance()
 
@@ -37,8 +42,8 @@ class LoginPageGurleen : AppCompatActivity() {
         auth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 //TODO: Go to main screen on successful login
-                //val intent = Intent(this)
-                //startActivity(intent)
+                val intent= Intent(this,Home::class.java)
+                startActivity(intent)
                 finish()
             }
         }.addOnFailureListener { exception ->
@@ -50,8 +55,9 @@ class LoginPageGurleen : AppCompatActivity() {
      * This function will send the user to the registration page if they press the button.
      */
     fun goToSignUp(view: View) {
-        //val intent = Intent(this)
-        //startActivity(this)
+        //val intent = Intent(this,SignUp::class.java)
+        //startActivity(intent)
+
     }
 
 }
