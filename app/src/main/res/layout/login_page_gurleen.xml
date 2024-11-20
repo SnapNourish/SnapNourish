@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginPageGurleen">
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -15,8 +15,6 @@
         android:src="@drawable/vegetable_background"
         android:scaleType="centerCrop"
         android:contentDescription="Background Image" />
-
-
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="130dp"
@@ -67,6 +65,7 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/blue"
         android:text="Login"
+        android:onClick="login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +79,7 @@
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/pink"
         android:text="Go Sign up"
+        android:onClick="goToSignUp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
