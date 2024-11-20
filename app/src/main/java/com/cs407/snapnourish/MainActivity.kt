@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         // Move to SignUp.kt Page
         findViewById<Button>(R.id.signupButton).setOnClickListener {
-            val intent = Intent(this, SignUp::class.java)
+            val intent = Intent(this, SignUpGurleen::class.java)
             startActivity(intent)
         }
     }

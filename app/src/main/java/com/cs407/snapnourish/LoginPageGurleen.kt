@@ -7,12 +7,9 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 
 class LoginPageGurleen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +73,7 @@ class LoginPageGurleen : AppCompatActivity() {
      * This function will send the user to the registration page if they press the button.
      */
     fun goToSignUp(view: View) {
-        val intent = Intent(this,SignUp::class.java)
+        val intent = Intent(this,SignUpGurleen::class.java)
         startActivity(intent)
 
     }

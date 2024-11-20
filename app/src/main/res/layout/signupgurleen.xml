@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/signup"
-    tools:context=".SignUp">
+    tools:context=".SignUpGurleen">
 
 
 
@@ -92,7 +92,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/green"
         android:text="Done Sign up"
-        android:onClick=""
+        android:onClick="register"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
