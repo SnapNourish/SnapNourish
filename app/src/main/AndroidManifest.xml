@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
@@ -28,8 +29,13 @@
 
         <activity android:name=".Home" />
         <activity android:name=".SignUpGurleen" />
+        <activity android:name=".ImageUploader" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".HistoryActivity" />
         <activity android:name=".TransitionActivity" />
+        <activity android:name=".ChatbotActivity" />
+
+
 
         <!-- CameraActivity -->
         <activity
