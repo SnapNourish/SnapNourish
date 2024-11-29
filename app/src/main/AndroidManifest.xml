@@ -34,6 +34,9 @@
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TransitionActivity" />
         <activity android:name=".ChatbotActivity" />
+        <activity android:name=".RecipeHistoryActivity" />
+        <activity android:name=".FoodAnalysisHistoryActivity" />
+
 
 
 

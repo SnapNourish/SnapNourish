@@ -56,6 +56,7 @@ class Home : AppCompatActivity() {
         findViewById<Button>(R.id.btn_scan_nutrition).setOnClickListener {
             checkAndRequestCameraPermission {
                 val intent = Intent(this, CameraActivity::class.java)
+                intent.putExtra("isRecipe", false)
                 startActivity(intent)
             }
         }
@@ -64,6 +65,7 @@ class Home : AppCompatActivity() {
         findViewById<Button>(R.id.btn_scan_meal).setOnClickListener {
             checkAndRequestCameraPermission {
                 val intent = Intent(this, CameraActivity::class.java)
+                intent.putExtra("isRecipe", true)
                 startActivity(intent)
             }
         }

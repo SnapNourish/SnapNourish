@@ -43,5 +43,18 @@ class HistoryActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
+
+        // Navigate to Recipe History screen
+        findViewById<Button>(R.id.btn_recipe_history).setOnClickListener {
+            val intent = Intent(this, RecipeHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Navigate to Food analysis screen
+        findViewById<Button>(R.id.btn_food_analysis_history).setOnClickListener {
+            val intent = Intent(this, FoodAnalysisHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
