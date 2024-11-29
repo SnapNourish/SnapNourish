@@ -28,11 +28,31 @@ class Home : AppCompatActivity() {
             insets
         }
 
+        // Navigate to Home screen(icon1)
+        findViewById<Button>(R.id.btn_home).setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+
+        //Navigate to History screen(icon2)
+        findViewById<Button>(R.id.btn_history).setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Navigate to Chatbot screen(icon3)
+        findViewById<Button>(R.id.btn_chat).setOnClickListener {
+            val intent = Intent(this, ChatbotActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Navigate to Settings screen(icon4)
         findViewById<Button>(R.id.btn_settings).setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
+        // to CameraX
         findViewById<Button>(R.id.btn_scan_nutrition).setOnClickListener {
             checkAndRequestCameraPermission {
                 val intent = Intent(this, CameraActivity::class.java)
@@ -40,6 +60,7 @@ class Home : AppCompatActivity() {
             }
         }
 
+        // to CameraX
         findViewById<Button>(R.id.btn_scan_meal).setOnClickListener {
             checkAndRequestCameraPermission {
                 val intent = Intent(this, CameraActivity::class.java)

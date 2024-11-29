@@ -1,36 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#DFF6E0">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Home Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/transition_background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-85dp" />
 
     <!-- Captured Image -->
     <ImageView
         android:id="@+id/capturedImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:scaleType="centerCrop"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/viewResultsButton"
+        app:layout_constraintBottom_toTopOf="@id/viewNutritionButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <!-- View Results Button -->
+    <!-- View Nutrition Button -->
     <Button
-        android:id="@+id/viewResultsButton"
+        android:id="@+id/viewNutritionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Results"
-        android:backgroundTint="@color/blue"
+        android:text="View Nutrition Information"
+        android:backgroundTint="#32CD32"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/capturedImage"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/viewMealRecommendationButton"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="3dp" />
+
+    <!-- View Meal Recommendation Button -->
+    <Button
+        android:id="@+id/viewMealRecommendationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Meal Recommendation"
+        android:backgroundTint="#DAA520"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/viewNutritionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

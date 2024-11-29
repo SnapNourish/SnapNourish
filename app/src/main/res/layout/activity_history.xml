@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home"
+    android:id="@+id/history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".HistoryActivity">
+
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -14,37 +15,10 @@
         android:layout_height="match_parent"
         android:contentDescription="Home Image"
         android:scaleType="centerCrop"
-        android:src="@drawable/home_background"
+        android:src="@drawable/history_background"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-85dp" />
 
-
-    <Button
-        android:id="@+id/btn_scan_nutrition"
-        android:layout_width="330dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="330dp"
-        android:backgroundTint="#32CD32"
-        android:text="Scan for\nNutrition Information"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_scan_meal"
-        android:layout_width="330dp"
-        android:layout_height="110dp"
-        android:backgroundTint="#DAA520"
-        android:text="Scan for\nMeal Recommendations"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/btn_scan_nutrition"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
 
     <LinearLayout
         android:id="@+id/bottom_buttons"
@@ -101,5 +75,6 @@
             android:scaleY="0.5"
             android:contentDescription="Settings"/>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
