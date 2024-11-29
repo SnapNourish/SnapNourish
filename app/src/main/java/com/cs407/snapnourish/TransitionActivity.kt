@@ -13,12 +13,12 @@ class TransitionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transition)
 
         val capturedImageView = findViewById<ImageView>(R.id.capturedImage)
-        val viewResultsButton = findViewById<Button>(R.id.viewResultsButton)
+        val viewNutritionButton = findViewById<Button>(R.id.viewNutritionButton)
 
         val imageUri = intent.getParcelableExtra<Uri>("IMAGE_URI")
         capturedImageView.setImageURI(imageUri)
 
-        viewResultsButton.setOnClickListener {
+        viewNutritionButton.setOnClickListener {
         }
     }
 }

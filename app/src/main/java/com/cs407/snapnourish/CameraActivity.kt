@@ -133,15 +133,24 @@ class CameraActivity : ComponentActivity() {
 
     // helper method to call uploadPhotoAndSaveUrl from imageUploader
     private fun uploadPhotoToFirebase(fileUri: Uri){
-        imageUploader.uploadPhotoAndSaveUrl(fileUri){ success->
+        val isRecipe = intent.getBooleanExtra("isRecipe", false)
+        imageUploader.uploadPhotoAndSaveUrl(fileUri, isRecipe){ success->
             progressBar.visibility = ProgressBar.INVISIBLE // hide ProgressBara after upload
             if(success){
                 Log.d("CameraActivity", "Photo uploaded to Firebase successfully")
                 Toast.makeText(this, "Photo uploaded successfully!", Toast.LENGTH_SHORT).show()
 
                 // Navigate to TransitionActivity after upload
-                val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
-                intent.putExtra("IMAGE_URI", fileUri)
+//                val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
+//                intent.putExtra("IMAGE_URI", fileUri)
+//                startActivity(intent)
+//                val isRecipe = intent.getBooleanExtra("isRecipe", false)
+
+                val intent = if (isRecipe) {
+                    Intent(this@CameraActivity, RecipeHistoryActivity::class.java)
+                } else {
+                    Intent(this@CameraActivity, FoodAnalysisHistoryActivity::class.java)
+                }
                 startActivity(intent)
             }else{
                 Log.e("CameraActivity", "Photo upload to Firebase failed")
