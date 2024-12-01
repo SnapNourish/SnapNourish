@@ -141,16 +141,8 @@ class CameraActivity : ComponentActivity() {
                 Toast.makeText(this, "Photo uploaded successfully!", Toast.LENGTH_SHORT).show()
 
                 // Navigate to TransitionActivity after upload
-//                val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
-//                intent.putExtra("IMAGE_URI", fileUri)
-//                startActivity(intent)
-//                val isRecipe = intent.getBooleanExtra("isRecipe", false)
-
-                val intent = if (isRecipe) {
-                    Intent(this@CameraActivity, RecipeHistoryActivity::class.java)
-                } else {
-                    Intent(this@CameraActivity, FoodAnalysisHistoryActivity::class.java)
-                }
+                val intent = Intent(this@CameraActivity, TransitionActivity::class.java)
+                intent.putExtra("IMAGE_URI", fileUri)
                 startActivity(intent)
             }else{
                 Log.e("CameraActivity", "Photo upload to Firebase failed")
