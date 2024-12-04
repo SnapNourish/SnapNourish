@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cs407.snapnourish.model.Photo
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -71,11 +72,13 @@ class HistoryActivity : AppCompatActivity() {
         photoRecyclerView = findViewById(R.id.photoRecyclerView)
         currentMonthTextView = findViewById(R.id.currentMonth)
 
-        adapter = PhotoAdapter(getPhotosForCurrentMonth())
+        //adapter = PhotoAdapter(getPhotosForCurrentMonth())
         photoRecyclerView.layoutManager = GridLayoutManager(this, 2)
         photoRecyclerView.adapter = adapter
 
+
         updateMonthDisplay()
+        fetchImagesAndDisplay()
 
         findViewById<Button>(R.id.btn_previous_month).setOnClickListener {
             calendar.add(Calendar.MONTH, -1)
@@ -119,24 +122,45 @@ class HistoryActivity : AppCompatActivity() {
         currentMonthTextView.text = dateFormat.format(calendar.time)
     }
 
-    private fun getPhotosForCurrentMonth(): List<Photo> {
-        //TODO
-        val database = Firebase.firestore
-        val imageList = mutableListOf<ImageModel>()
-        val collection = database.collection("recipe_photos")
-        collection.get()
-            .addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
-                    //Log.d(TAG, "${document.id} => ${document.data}")
-                    //val items = querySnapshot.toObjects(Item::class.java)
-                    val imageUrl = document.getString("imageURL")
-                    if (imageUrl != null) {
-                        imageList.add(ImageModel(imageUrl))
-                    }
+    //private fun getPhotosForCurrentMonth(): List<Photo> {
+    //    //TODO
+    //    val database = Firebase.firestore
+    //    val imageList = mutableListOf<ImageModel>()
+    //    val collection = database.collection("recipe_photos")
+    //    collection.get()
+    //        .addOnSuccessListener { querySnapshot ->
+    //            for (document in querySnapshot) {
+    //                //Log.d(TAG, "${document.id} => ${document.data}")
+    //                //val items = querySnapshot.toObjects(Item::class.java)
+    //                val imageUrl = document.getString("imageURL")
+    //                if (imageUrl != null) {
+    //                    imageList.add(ImageModel(imageUrl))
+    //                }
+    //            }
+    //            adapter.updatePhotos(imageList)
+    //        }
+    //    return emptyList()
+   //}
+
+    private fun fetchImagesAndDisplay() {
+        val db = FirebaseFirestore.getInstance()
+        val imageList = mutableListOf<ImageItem>()
+        val adapter = ImageAdapter(imageList)
+        photoRecyclerView.adapter = adapter
+
+        db.collection("recipe_photos")
+            .get()
+            .addOnSuccessListener { documents ->
+                imageList.clear()
+                for (document in documents) {
+                    val image = document.toObject(ImageItem::class.java)
+                    imageList.add(image)
                 }
-                adapter.updatePhotos(imageList)
+                adapter.notifyDataSetChanged()
             }
-        return emptyList()
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+            }
     }
 }
 
