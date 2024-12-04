@@ -36,6 +36,8 @@ class SignUpGurleen : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 val intent = Intent(this,Home::class.java)
+                val currentUser = auth.currentUser
+                val uid = auth.uid
                 startActivity(intent)
             }
         }.addOnFailureListener { exception ->

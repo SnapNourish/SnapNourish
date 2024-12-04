@@ -61,6 +61,7 @@ class LoginPageGurleen : AppCompatActivity() {
             if (task.isSuccessful) {
                 Log.d(TAG, "signinwithemailsuccess")
                 val user = auth.currentUser
+                val uid = auth.uid
                 val intent = Intent(this,Home::class.java)
                 startActivity(intent)
             }
