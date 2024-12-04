@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cs407.snapnourish.model.Photo
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -45,15 +46,20 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-            TODO("Not yet implemented")
+            val imageItem = images[position]
+            Glide.with(holder.itemView.context)
+                .load(imageItem.imageUrl)
+                .into(holder.itemView.imageView) //assume imageView is in layout?
         }
+
+        override fun getItemCount(): Int = iamges.size
 
         }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContentView(R.layout.activity_history)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
