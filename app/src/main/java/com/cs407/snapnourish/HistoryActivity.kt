@@ -1,5 +1,6 @@
 package com.cs407.snapnourish
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -16,6 +17,10 @@ import com.cs407.snapnourish.model.Photo
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
+
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -23,6 +28,9 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var currentMonthTextView: TextView
     private var calendar = Calendar.getInstance()
     private lateinit var adapter: PhotoAdapter
+    data class ImageModel(
+        val imageUrl: String? = null
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +96,21 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun getPhotosForCurrentMonth(): List<Photo> {
         //TODO
+        val database = Firebase.firestore
+        val imageList = mutableListOf<ImageModel>()
+        val collection = database.collection("recipe_photos")
+        collection.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    //Log.d(TAG, "${document.id} => ${document.data}")
+                    //val items = querySnapshot.toObjects(Item::class.java)
+                    val imageUrl = document.getString("imageURL")
+                    if (imageUrl != null) {
+                        imageList.add(ImageModel(imageUrl))
+                    }
+                }
+                adapter.updatePhotos(imageList)
+            }
         return emptyList()
     }
 }
