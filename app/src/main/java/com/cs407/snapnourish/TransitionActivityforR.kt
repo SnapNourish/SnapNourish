@@ -7,24 +7,18 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
-class TransitionActivity : AppCompatActivity() {
+class TransitionActivityforR : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_transition)
+        setContentView(R.layout.activity_transition_r)
 
         val capturedImageView = findViewById<ImageView>(R.id.capturedImage)
-        val viewNutritionButton = findViewById<Button>(R.id.viewNutritionButton)
         val viewMealRecommendationButton = findViewById<Button>(R.id.viewMealRecommendationButton)
 
-        val imageUri = intent.getParcelableExtra<Uri>("IMAGE_URI")
+        val imageUri = intent.getStringExtra("IMAGE_URI")?.let { Uri.parse(it) }
         capturedImageView.setImageURI(imageUri)
 
-        viewNutritionButton.setOnClickListener {
-            val intent = Intent(this, NutritionResultActivity::class.java)
-            intent.putExtra("IMAGE_URI", imageUri.toString())
-            startActivity(intent)
-        }
 
         viewMealRecommendationButton.setOnClickListener {
             val intent = Intent(this, RecipeResultActivity::class.java)

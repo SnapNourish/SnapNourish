@@ -32,7 +32,8 @@
         <activity android:name=".ImageUploader" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".TransitionActivity" />
+        <activity android:name=".TransitionActivityforN" />
+        <activity android:name=".TransitionActivityforR" />
         <activity android:name=".ChatbotActivity" />
         <activity android:name=".RecipeResultActivity" />
         <activity android:name=".NutritionResultActivity" />
