@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -21,16 +22,34 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var photoRecyclerView: RecyclerView
     private lateinit var currentMonthTextView: TextView
     private var calendar = Calendar.getInstance()
     private lateinit var adapter: PhotoAdapter
-    data class ImageModel(
+    //data class
+    data class ImageItem(
         val imageUrl: String? = null
     )
+
+    class ImageAdapter(private val images: List<ImageItem>) :
+        RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+            class ImageViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view)
+
+        // might be parent: android.view.ViewGroup
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+            val view = android.view.LayoutInflater.from(parent.context)
+                .inflate(R.layout.activity_history, parent, false)
+            return ImageViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+            TODO("Not yet implemented")
+        }
+
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
