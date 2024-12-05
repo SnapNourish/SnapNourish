@@ -1,1 +1,3 @@
 /build
+# Key for vertex ai
+app/src/main/res/raw/snapnourish_3028a_vertexai_key.json
