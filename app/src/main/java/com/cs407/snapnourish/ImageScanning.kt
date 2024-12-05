@@ -1,29 +1,5 @@
 package com.cs407.snapnourish
 
-//import android.os.Bundle
-//import android.util.Log
-//import androidx.activity.enableEdgeToEdge
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.core.view.ViewCompat
-//import androidx.core.view.WindowInsetsCompat
-//import com.google.auth.oauth2.GoogleCredentials
-//import kotlinx.coroutines.CoroutineScope
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.launch
-//import kotlinx.coroutines.withContext
-//import okhttp3.Call
-//import okhttp3.Callback
-//import okhttp3.MediaType.Companion.toMediaType
-//import okhttp3.OkHttpClient
-//import okhttp3.Request
-//import okhttp3.RequestBody.Companion.toRequestBody
-//import okhttp3.Response
-//import java.io.IOException
-//import java.io.InputStream
-
-
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -41,7 +17,7 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-import org.json.JSONObject
+//import org.json.JSONObject
 
 class ImageScanning : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +39,7 @@ class ImageScanning : AppCompatActivity() {
             Log.d("debugTag", "client set")
 
 //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
+            // TODO change fileUri for json
             // JSON payload with image and text prompt
             val json = """
         {
@@ -72,7 +49,7 @@ class ImageScanning : AppCompatActivity() {
                     {
                         "fileData": {
                             "mimeType": "image/jpeg",
-                            "fileUri": "gs://snapnourish/images/burger.jpg"
+                            "fileUri": "gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg"
                         }
                     },
                     {
@@ -86,7 +63,8 @@ class ImageScanning : AppCompatActivity() {
             val requestBody = json.toRequestBody("application/json".toMediaType())
             Log.d("debugTag", "json request body set")
             val request = Request.Builder()
-                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+//                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-3028a/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
                 .addHeader("Authorization", "Bearer $accessToken")
                 .addHeader("Content-Type", "application/json")
                 .post(requestBody)
@@ -112,7 +90,8 @@ class ImageScanning : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 // Load the JSON key from resources
-                val inputStream: InputStream = resources.openRawResource(R.raw.snapnourish_440719_key)
+//                val inputStream: InputStream = resources.openRawResource(R.raw.snapnourish_440719_key)
+                val inputStream: InputStream = resources.openRawResource(R.raw.snapnourish_3028a_vertexai_key)
 //                Log.d("debugTag", "input stream set")
 
                 // Use GoogleCredentials to authenticate with the JSON key

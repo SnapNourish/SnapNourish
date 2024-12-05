@@ -1,6 +1,7 @@
 package com.cs407.snapnourish
 
 import android.content.Intent
+import com.cs407.snapnourish.R
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
