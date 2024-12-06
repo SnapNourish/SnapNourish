@@ -139,6 +139,10 @@ dependencies {
     // for resolving merge conflicts
     implementation("com.google.protobuf:protobuf-javalite:3.25.2")  // Ensure consistent version
 
+    // for marking down chatbot response
+    implementation ("io.noties.markwon:core:4.6.2")
+
+
 
 
 

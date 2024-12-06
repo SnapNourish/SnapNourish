@@ -2,6 +2,7 @@ package com.cs407.snapnourish
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
+import io.noties.markwon.Markwon
 
 class ChatbotActivity : AppCompatActivity() {
     private lateinit var chatAdapter: ChatAdapter
@@ -58,7 +60,12 @@ class ChatbotActivity : AppCompatActivity() {
                         // Call generateContent (plain Gemini model for chatbot)
                         lifecycleScope.launch {
                             val responseAI = generateResponseAI(prompt)
-                            chatMessages.add(ChatMessage(responseAI.toString(), false))
+                            val responseText = responseAI.toString().trimIndent()
+
+                            // Preprocess Markdown using Markwon
+                            val markwon = Markwon.create(this@ChatbotActivity)
+                            val renderedMarkdown = markwon.toMarkdown(responseText)
+                            chatMessages.add(ChatMessage(renderedMarkdown.toString(), false))
                             chatAdapter.notifyItemInserted(chatMessages.size - 1)
                             recyclerView.scrollToPosition(chatMessages.size - 1)
                         }
