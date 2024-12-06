@@ -92,18 +92,17 @@ class ChatbotActivity : AppCompatActivity() {
     }
 
 
+    // Generates the response from the AI
     suspend fun generateResponseAI(prompt :String): String {
-        // Create your GenerativeModel instance
         val generativeModel = GenerativeModel(
             modelName = "gemini-1.5-flash",
             apiKey = BuildConfig.GEMINI_API_KEY
         )
 
         return try {
-                // Call the suspend function generateContent
                 val response = generativeModel.generateContent(prompt)
                 // Use the response
-                println(response.text)
+//                println(response.text)
                 response.text?: "No response received."  // Return the response text directly
             } catch (e: Exception) {
                 // Handle any errors

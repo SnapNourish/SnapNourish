@@ -125,8 +125,9 @@ dependencies {
     }
 
     //implementation("com.google.firebase:firebase-auth-ktx:20.0.2")
-    // for HTTP Client
+    // for HTTP Client for tokenisation (used for AI response)
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    // for parsing AI response
     implementation("com.google.code.gson:gson:2.8.8")
 
     // for parsing response from Vertex AI

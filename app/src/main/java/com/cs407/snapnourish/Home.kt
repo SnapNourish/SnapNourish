@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.activity.result.contract.ActivityResultContracts
+
 
 class Home : AppCompatActivity() {
 
@@ -88,4 +90,5 @@ class Home : AppCompatActivity() {
             Toast.makeText(this, "Need Camera Permission", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

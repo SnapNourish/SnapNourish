@@ -17,8 +17,10 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-//import org.json.JSONObject
+import okhttp3.Response
+import org.json.JSONObject
 
+// This class contains code used to analyse the nutritional content in an image
 class ImageScanning : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,32 +40,32 @@ class ImageScanning : AppCompatActivity() {
             val client = OkHttpClient()
             Log.d("debugTag", "client set")
 
-//            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
+    //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
             // TODO change fileUri for json
             // JSON payload with image and text prompt
             val json = """
-        {
-            "contents": {
-                "role": "user",
-                "parts": [
-                    {
-                        "fileData": {
-                            "mimeType": "image/jpeg",
-                            "fileUri": "gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg"
+            {
+                "contents": {
+                    "role": "user",
+                    "parts": [
+                        {
+                            "fileData": {
+                                "mimeType": "image/jpeg",
+                                "fileUri": "gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg"
+                            }
+                        },
+                        {
+                            "text": "What dish is in this picture and how many calories are in it? Give me the nutritional information of this."
                         }
-                    },
-                    {
-                        "text": "What dish is in this picture and how many calories are in it? Give me the nutritional information of this."
-                    }
-                ]
+                    ]
+                }
             }
-        }
-    """.trimIndent()
+        """.trimIndent()
             Log.d("debugTag", "json string set")
             val requestBody = json.toRequestBody("application/json".toMediaType())
             Log.d("debugTag", "json request body set")
             val request = Request.Builder()
-//                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+    //                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
                 .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-3028a/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
                 .addHeader("Authorization", "Bearer $accessToken")
                 .addHeader("Content-Type", "application/json")
@@ -78,7 +80,12 @@ class ImageScanning : AppCompatActivity() {
                 override fun onResponse(call: Call, response: Response) {
                     response.body?.let {
                         val responseText = it.string()
-                        Log.d("VertexAI Response To Image:", responseText)
+                        val responseToParse = responseText.trimIndent()
+//                        Log.d("VertexAI Response To Image:", responseText)
+                        // Parse the response and display text:
+                        val toDisplay: String = parseJSON(responseToParse)
+                        Log.d("AI Response:", toDisplay)
+
                     }
                 }
             })
@@ -115,6 +122,29 @@ class ImageScanning : AppCompatActivity() {
             }
         }
     }
+
+    fun parseJSON(responseString: String): String {
+        val jsonObject = JSONObject(responseString)
+
+        // Navigate to "candidates" array
+        val candidatesArray = jsonObject.getJSONArray("candidates")
+
+        // Get the first candidate object
+        val firstCandidate = candidatesArray.getJSONObject(0)
+
+        // Navigate to "content" -> "parts" array
+        val contentObject = firstCandidate.getJSONObject("content")
+        val partsArray = contentObject.getJSONArray("parts")
+
+        // Get the first part and its "text"
+        val firstPart = partsArray.getJSONObject(0)
+        val text = firstPart.getString("text")
+
+        // Print the extracted text
+//        Log.d("Extracted Text: ", text)
+        return text
+    }
+
 }
 
 

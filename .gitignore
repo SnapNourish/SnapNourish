@@ -16,4 +16,5 @@ local.properties
 /app/secrets.properties
 app/src/main/res/raw/snapnourish_440719_key.json
 app/src/main/res/raw/snapnourish_3028a_vertexai_key.json
+app/src/main/res/raw/*.json
 
