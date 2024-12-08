@@ -88,14 +88,24 @@ class HistoryActivity : AppCompatActivity() {
     private fun updateMonthDisplay() {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         currentMonthTextView.text = dateFormat.format(calendar.time)
+
+        val updatedPhotos = getPhotosForCurrentMonth()
+        adapter = PhotoAdapter(updatedPhotos)
+        photoRecyclerView.adapter = adapter
     }
 
     private fun getPhotosForCurrentMonth(): List<Photo> {
-        return listOf(
-            Photo(R.drawable.food1, "2024-12-1"),
-            Photo(R.drawable.food2, "2024-12-2"),
-            Photo(R.drawable.food3, "2024-12-3")
-        )
+        val currentMonth = calendar.get(Calendar.MONTH)
+
+        return if (currentMonth == Calendar.DECEMBER) {
+            listOf(
+                Photo(R.drawable.food1, "2024-12-1"),
+                Photo(R.drawable.food2, "2024-12-2"),
+                Photo(R.drawable.food3, "2024-12-3")
+            )
+        } else {
+            emptyList()
+        }
     }
 }
 
