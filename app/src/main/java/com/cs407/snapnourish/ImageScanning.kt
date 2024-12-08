@@ -31,10 +31,10 @@ class ImageScanning : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        generateImageResponse()
+        generateImageResponse("gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg")
     }
 
-    private fun generateImageResponse() {
+    private fun generateImageResponse(fileUri: String) {
         // for image scanning
         generateAccessToken { accessToken ->
             val client = OkHttpClient()
@@ -51,7 +51,7 @@ class ImageScanning : AppCompatActivity() {
                         {
                             "fileData": {
                                 "mimeType": "image/jpeg",
-                                "fileUri": "gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg"
+                                "fileUri": "$fileUri"
                             }
                         },
                         {
@@ -75,6 +75,7 @@ class ImageScanning : AppCompatActivity() {
             }
         """.trimIndent()
             Log.d("debugTag", "json string set")
+            Log.d("Generated JSON:", json)
             val requestBody = json.toRequestBody("application/json".toMediaType())
             Log.d("debugTag", "json request body set")
             val request = Request.Builder()
@@ -157,6 +158,7 @@ class ImageScanning : AppCompatActivity() {
 //        Log.d("Extracted Text: ", text)
         return text
     }
+
 
 }
 

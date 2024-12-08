@@ -106,6 +106,4 @@ class Home : AppCompatActivity() {
         }
     }
 
-
-
 }
