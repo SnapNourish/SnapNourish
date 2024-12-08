@@ -40,7 +40,7 @@ class ImageScanning : AppCompatActivity() {
             val client = OkHttpClient()
             Log.d("debugTag", "client set")
 
-    //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
+            //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
             // TODO change fileUri for json
             // JSON payload with image and text prompt
             val json = """
@@ -55,7 +55,15 @@ class ImageScanning : AppCompatActivity() {
                             }
                         },
                         {
-                            "text": "What dish is in this picture and how many calories are in it? Give me the nutritional information of this."
+                            "text": "I am creating an app that analyses the dish in an image and
+                             outputs the nutritional information for it in 1 serving of that dish. 
+                             In this image, identify the dish shown and then output its name and nutritional 
+                             information in a clean and easy way so I can parse the data and display
+                              it to a table in my app. Structure the response with the following: 
+                              name of dish, number of calories in 1 typical serving, followed by 
+                              nutritional information (with units in mg or g). Do not include any other information as I 
+                              need only the data to be present so I can easily parse and display it.
+                               Format the data in a csv file."
                         }
                     ]
                 }
@@ -65,7 +73,7 @@ class ImageScanning : AppCompatActivity() {
             val requestBody = json.toRequestBody("application/json".toMediaType())
             Log.d("debugTag", "json request body set")
             val request = Request.Builder()
-    //                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+                //                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
                 .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-3028a/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
                 .addHeader("Authorization", "Bearer $accessToken")
                 .addHeader("Content-Type", "application/json")
