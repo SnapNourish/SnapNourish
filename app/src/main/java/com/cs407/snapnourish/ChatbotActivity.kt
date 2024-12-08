@@ -37,11 +37,13 @@ class ChatbotActivity : AppCompatActivity() {
         chatAdapter = ChatAdapter(chatMessages)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = chatAdapter
-
+        // Add a fixed welcome message for chatbot
+        chatMessages.add(ChatMessage("Welcome to SnapNourish Chat! Ask me food!",false))
         // Handle message input and send button
         val editTextMessage = findViewById<EditText>(R.id.editText_message)
         val buttonSend = findViewById<Button>(R.id.btn_send)
 
+        // Add a fixed welcome message for chatbot
         buttonSend.setOnClickListener {
             val message = editTextMessage.text.toString()
             val prompt = message

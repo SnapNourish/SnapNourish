@@ -61,9 +61,14 @@ class ImageScanning : AppCompatActivity() {
                              information in a clean and easy way so I can parse the data and display
                               it to a table in my app. Structure the response with the following: 
                               name of dish, number of calories in 1 typical serving, followed by 
-                              nutritional information (with units in mg or g). Do not include any other information as I 
+                              nutritional information (with units in mg or g). The nutritional information
+                              should include quantities for carbohydrates, protein, saturated fat, unsaturated fat,
+                              and fiber in this exact order. Include these titles and their respective
+                              units in brackets next to that title. Here is an example of the the exact format I want the nutritional information in:
+                              name of dish,calories,carbohydrates [g],protein [g],saturated fat [g],unsaturated fat [g],fiber [g],
+                              Apple Pie,300,30,20,8,12,2. Do not include any other information as I 
                               need only the data to be present so I can easily parse and display it.
-                               Format the data in a csv file."
+                              Format the data in a csv file."
                         }
                     ]
                 }
