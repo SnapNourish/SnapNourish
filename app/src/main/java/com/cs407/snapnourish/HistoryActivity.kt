@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cs407.snapnourish.model.Photo
+import androidx.recyclerview.widget.DividerItemDecoration
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -41,6 +42,9 @@ class HistoryActivity : AppCompatActivity() {
         adapter = PhotoAdapter(getPhotosForCurrentMonth())
         photoRecyclerView.layoutManager = GridLayoutManager(this, 2)
         photoRecyclerView.adapter = adapter
+
+        val itemDecoration = SpaceItemDecoration(16) // 16dp 간격
+        photoRecyclerView.addItemDecoration(itemDecoration)
 
         updateMonthDisplay()
 
@@ -87,8 +91,11 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun getPhotosForCurrentMonth(): List<Photo> {
-        //TODO
-        return emptyList()
+        return listOf(
+            Photo(R.drawable.food1, "2024-12-1"),
+            Photo(R.drawable.food2, "2024-12-2"),
+            Photo(R.drawable.food3, "2024-12-3")
+        )
     }
 }
 

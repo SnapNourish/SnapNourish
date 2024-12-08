@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         tools:listitem="@layout/item_chat_message" />
 
     <!-- Input Layout -->
@@ -47,6 +47,7 @@
             android:id="@+id/editText_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:layout_weight="1"
             android:hint="Type here"
             android:inputType="text"

@@ -66,42 +66,6 @@
 
 
     <LinearLayout
-        android:id="@+id/history_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/holo_green_light"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_buttons"
-        tools:layout_editor_absoluteX="0dp">
-
-        <Button
-            android:id="@+id/btn_recipe_history"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:contentDescription="Navigate to Recipe History"
-            android:padding="10dp"
-            android:text="Recipe History"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_food_analysis_history"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:contentDescription="Navigate to Food Analysis History"
-            android:padding="10dp"
-            android:text="Food Analysis History"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

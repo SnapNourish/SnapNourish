@@ -27,6 +27,10 @@ class ChatbotActivity : AppCompatActivity() {
             insets
         }
 
+        // Add a fixed welcome message
+        chatMessages.add(ChatMessage("Welcome to SnapNourish chat! Ask me about food!", false))
+
+
         // Initialize RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_chat)
         chatAdapter = ChatAdapter(chatMessages)
