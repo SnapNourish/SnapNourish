@@ -62,7 +62,8 @@
         app:layout_constraintTop_toBottomOf="@id/monthSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/activity_item_image"/>
 
 
     <LinearLayout

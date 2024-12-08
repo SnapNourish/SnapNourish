@@ -22,6 +22,13 @@ import java.util.Calendar
 import java.util.Locale
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.view.LayoutInflater
+import  android.widget.ImageView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cs407.snapnourish.databinding.ActivityHistoryBinding
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -30,55 +37,82 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var currentMonthTextView: TextView
     private var calendar = Calendar.getInstance()
     private lateinit var adapter: PhotoAdapter
+    private lateinit var binding: ActivityHistoryBinding
     //data class
-    data class ImageItem(
-        val imageUrl: String? = null
-    )
+   // data class ImageItem(
+   //     val imageUrl: String? = null
+   // )
 
-    class ImageAdapter(private val images: List<ImageItem>) :
-        RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
-            class ImageViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view)
+    //class ImageAdapter(private val images: List<ImageItem>) :
+        //RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+            //class ImageViewHolder(val imageView: ImageView) : RecyclerView.ViewHolder(imageView)
 
         // might be parent: android.view.ViewGroup
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-            val view = android.view.LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_history, parent, false)
-            return ImageViewHolder(view)
-        }
+        //override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+        //    //create the layout for each item
+        //    val cardView = CardView(parent.context).apply {
+        //        layoutParams = ViewGroup.LayoutParams(
+        //            ViewGroup.LayoutParams.MATCH_PARENT,
+        //            ViewGroup.LayoutParams.WRAP_CONTENT
+        //        )
+        //        radius = 8f
+        //        setContentPadding(8,8,8,8)
+        //    }
+        //    val imageView = ImageView(parent.context).apply {
+        //        layoutParams = ViewGroup.LayoutParams(
+        //            ViewGroup.LayoutParams.MATCH_PARENT,
+        //            200
+        //        )
+        //        scaleType = ImageView.ScaleType.CENTER_CROP
+        //    }
+        //    cardView.addView(imageView)
+        //    return ImageViewHolder(imageView)
+        ///   //val view = android.view.LayoutInflater.from(parent.context)
+        //        //.inflate(R.layout.activity_history, parent, false)
+        //    //return ImageViewHolder(view)
+        //}
 
-        override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-            val imageItem = images[position]
-            Glide.with(holder.itemView.context)
-                .load(imageItem.imageUrl)
-                .into(holder.itemView.imageView) //assume imageView is in layout?
-        }
+        //override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        //    val imageItem = images[position]
+        //    Glide.with(holder.itemView.context)
+        //        .load(imageItem.imageUrl)
+        //        .into(holder.imageView) //assume imageView is in layout?
+        //}
 
-        override fun getItemCount(): Int = iamges.size
+        //override fun getItemCount(): Int = images.size
 
-        }
+        //}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
-        setContentView(R.layout.activity_history)
+       // setContentView(R.layout.activity_history)
+        //Set up view binding
+        binding = ActivityHistoryBinding.inflate((layoutInflater))
+        setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
+        //    val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        //    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+        //    insets
+        //}
 
-        photoRecyclerView = findViewById(R.id.photoRecyclerView)
+        //photoRecyclerView = findViewById(R.id.photoRecyclerView)
         currentMonthTextView = findViewById(R.id.currentMonth)
 
         //adapter = PhotoAdapter(getPhotosForCurrentMonth())
-        photoRecyclerView.layoutManager = GridLayoutManager(this, 2)
-        photoRecyclerView.adapter = adapter
+        //photoRecyclerView.layoutManager = GridLayoutManager(this, 2)
+        //photoRecyclerView.adapter = adapter
+
+        val adapter = ItemImageAdapter(mutableListOf())
+        binding.photoRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.photoRecyclerView.adapter = adapter
 
 
         updateMonthDisplay()
-        fetchImagesAndDisplay()
+        //fetchImagesAndDisplay()
+        fetchImages(adapter)
 
         findViewById<Button>(R.id.btn_previous_month).setOnClickListener {
             calendar.add(Calendar.MONTH, -1)
@@ -142,25 +176,53 @@ class HistoryActivity : AppCompatActivity() {
     //    return emptyList()
    //}
 
-    private fun fetchImagesAndDisplay() {
-        val db = FirebaseFirestore.getInstance()
-        val imageList = mutableListOf<ImageItem>()
-        val adapter = ImageAdapter(imageList)
-        photoRecyclerView.adapter = adapter
+    //private fun fetchImagesAndDisplay() {
+    //    val db = FirebaseFirestore.getInstance()
+    //    val imageList = mutableListOf<ImageItem>()
+    //    val adapter = ImageAdapter(imageList)
+    //    binding.photoRecyclerView.adapter = adapter
+    //    //photoRecyclerView.adapter = adapter
 
-        db.collection("recipe_photos")
+    //    db.collection("recipe_photos")
+    //        .get()
+    //        .addOnSuccessListener { documents ->
+    //            imageList.clear()
+    //            for (document in documents) {
+    //                val image = document.toObject(ImageItem::class.java)
+    //                imageList.add(image)
+    //            }
+    //            adapter.notifyDataSetChanged()
+    //        }
+    //        .addOnFailureListener { e ->
+    //            e.printStackTrace()
+    //        }
+    //}
+    private fun fetchImages(adapter: ItemImageAdapter) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            // Handle the case where the user is not logged in
+            Log.e("UserError", "No user is currently logged in.")
+            return
+        }
+        val userId = currentUser.uid
+        val db = FirebaseFirestore.getInstance()
+        db.collection("nutrition_photos")
+            .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { documents ->
-                imageList.clear()
-                for (document in documents) {
-                    val image = document.toObject(ImageItem::class.java)
-                    imageList.add(image)
+                val imageList = documents.map { doc ->
+                    ItemImage(
+                        photoURL = doc.getString("photoURL") ?: "",
+                    )
                 }
-                adapter.notifyDataSetChanged()
+                adapter.updateData(imageList)
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
             }
     }
 }
+//data class ImageItem(
+//    val imageUrl: String? = null
+//)
 
