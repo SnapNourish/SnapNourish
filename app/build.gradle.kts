@@ -53,16 +53,12 @@ dependencies {
     implementation("androidx.camera:camera-view:1.0.0-alpha27")
 
     // Testing dependencies
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     //Dependencies for Firebase products
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-analytics")
 
     //implementation("com.google.firebase:firebase-auth-ktx:20.0.2")
 

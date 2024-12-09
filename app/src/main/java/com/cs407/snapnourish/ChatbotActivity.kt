@@ -32,7 +32,6 @@ class ChatbotActivity : AppCompatActivity() {
         chatAdapter = ChatAdapter(chatMessages)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = chatAdapter
-
         // Handle message input and send button
         val editTextMessage = findViewById<EditText>(R.id.editText_message)
         val buttonSend = findViewById<Button>(R.id.btn_send)
@@ -50,7 +49,6 @@ class ChatbotActivity : AppCompatActivity() {
 
                 // Simulate AI response (left side, white bubble) after a delay
                 recyclerView.postDelayed({
-                    chatMessages.add(ChatMessage("AI answer will be HERE", false))
                     chatAdapter.notifyItemInserted(chatMessages.size - 1)
                     recyclerView.scrollToPosition(chatMessages.size - 1)
                 }, 1000) // 1-second delay
