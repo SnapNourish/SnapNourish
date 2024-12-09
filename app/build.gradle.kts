@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.auth)
 
     // CameraX dependencies
     val cameraxVersion = "1.0.2"
@@ -64,6 +66,12 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+//    implementation ('com.google.firebase:firebase-bom:32.2.0') // Use the latest BOM
+//    implementation ('com.google.firebase:firebase-storage') // For Firebase Storage
+//    implementation ('com.google.firebase:firebase-auth')    // For Authentication
+//    implementation ('com.google.firebase:firebase-firestore') // For Firestore
+
 
 
 
