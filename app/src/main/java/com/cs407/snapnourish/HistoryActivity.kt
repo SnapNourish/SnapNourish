@@ -204,6 +204,7 @@ class HistoryActivity : AppCompatActivity() {
             Log.e("UserError", "No user is currently logged in.")
             return
         }
+        Log.d("User", "User")
         val userId = currentUser.uid
         val db = FirebaseFirestore.getInstance()
         db.collection("nutrition_photos")
