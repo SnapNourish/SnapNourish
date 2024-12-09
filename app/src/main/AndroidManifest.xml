@@ -38,8 +38,6 @@
         <activity android:name=".FoodAnalysisHistoryActivity" />
 
 
-
-
         <!-- CameraActivity -->
         <activity
             android:name=".CameraActivity"
