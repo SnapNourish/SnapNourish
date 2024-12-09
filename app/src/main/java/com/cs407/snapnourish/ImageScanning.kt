@@ -2,7 +2,6 @@ package com.cs407.snapnourish
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -31,17 +30,18 @@ class ImageScanning : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        generateImageResponse("gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg")
+        generateNutritionalInfo("gs://snapnourish-3028a.firebasestorage.app/images/burger.jpg")
+        generateMealRecommendations("gs://snapnourish-3028a.firebasestorage.app/images/sandwich-ingredients.jpg")
     }
 
-    private fun generateImageResponse(fileUri: String) {
-        // for image scanning
+    // This function returns nutritional information for a scanned meal/dish.
+    private fun generateNutritionalInfo(fileUri: String) {
         generateAccessToken { accessToken ->
             val client = OkHttpClient()
             Log.d("debugTag", "client set")
 
             //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
-            // TODO change fileUri for json
+
             // JSON payload with image and text prompt
             val json = """
             {
@@ -75,7 +75,74 @@ class ImageScanning : AppCompatActivity() {
             }
         """.trimIndent()
             Log.d("debugTag", "json string set")
-            Log.d("Generated JSON:", json)
+            val requestBody = json.toRequestBody("application/json".toMediaType())
+            Log.d("debugTag", "json request body set")
+            val request = Request.Builder()
+                //                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-440719/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+                .url("https://us-central1-aiplatform.googleapis.com/v1/projects/snapnourish-3028a/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent")
+                .addHeader("Authorization", "Bearer $accessToken")
+                .addHeader("Content-Type", "application/json")
+                .post(requestBody)
+                .build()
+            Log.d("debugTag", "json request sent.")
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    response.body?.let {
+                        val responseText = it.string()
+                        val responseToParse = responseText.trimIndent()
+//                        Log.d("VertexAI Response To Image:", responseText)
+                        // Parse the response and display text:
+                        val toDisplay: String = parseJSON(responseToParse)
+                        Log.d("AI Response:", toDisplay)
+
+                    }
+                }
+            })
+        }
+    }
+
+    // This function returns meal recommendations for scanned ingredients.
+    private fun generateMealRecommendations(fileUri: String) {
+        generateAccessToken { accessToken ->
+            val client = OkHttpClient()
+            Log.d("debugTag", "client set")
+
+            //            https://storage.googleapis.com/generativeai-downloads/images/scones.jpg  file uri to use for testing in json
+
+            // JSON payload with image and text prompt
+            val json = """
+            {
+                "contents": {
+                    "role": "user",
+                    "parts": [
+                        {
+                            "fileData": {
+                                "mimeType": "image/jpeg",
+                                "fileUri": "$fileUri"
+                            }
+                        },
+                        {
+                            "text": "I am creating an app that analyses the ingredients in an image 
+                             and outputs meal recommendations using the ingredients in the image. 
+                             In this image, identify all the ingredients and then output 3 meal
+                             recommendations using these ingredients. Structure the response with 
+                             the following: name of the dish and approximate cooking time for 1
+                             serving of this dish. Here is an example of the the exact format I want the
+                             response in: name of dish, cook time of dish, Chicken caesar salad,
+                             15 minutes. Do not include any other information as I need only the
+                             data to be present so I can easily parse and display it.
+                             Format the data in a csv file."
+
+                        }
+                    ]
+                }
+            }
+        """.trimIndent()
+            Log.d("debugTag", "json string set")
             val requestBody = json.toRequestBody("application/json".toMediaType())
             Log.d("debugTag", "json request body set")
             val request = Request.Builder()
@@ -137,6 +204,7 @@ class ImageScanning : AppCompatActivity() {
         }
     }
 
+    // Function to parse the response from AI model and extract the necessary details.
     fun parseJSON(responseString: String): String {
         val jsonObject = JSONObject(responseString)
 
