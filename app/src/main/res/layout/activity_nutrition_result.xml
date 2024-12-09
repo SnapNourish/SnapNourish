@@ -19,13 +19,13 @@
         android:id="@+id/resultImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="80dp"
+        android:contentDescription="Result Image"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Result Image" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/foodNameTextView"
@@ -78,8 +78,44 @@
         android:background="#E0E0E0"
         android:padding="12dp"
         android:gravity="start"
-        app:layout_constraintTop_toBottomOf="@id/nutritionTitleTextView"        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nutritionTitleTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/missingNutrientsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Missing Nutrients will be displayed here."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="#E0E0E0"
+        android:padding="12dp"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@id/nutritionInfoTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/recommendIngredientsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Recommended Ingredients will be displayed here."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="#E0E0E0"
+        android:padding="12dp"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@id/missingNutrientsTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/bottom_buttons"
