@@ -17,6 +17,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"${project.findProperty("GEMINI_API_KEY")}\""
+        )
+    }
+    buildFeatures {
+        buildConfig =true
     }
 
     buildTypes {
@@ -71,6 +79,12 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
-
+    // Dependencies for Gemini Chatbot
+    // add the dependency for the Google AI client SDK for Android
+    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+    // for coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    // for marking down chatbot response
+    implementation ("io.noties.markwon:core:4.6.2")
 
 }
