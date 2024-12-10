@@ -102,8 +102,8 @@ class HistoryActivity : AppCompatActivity() {
                 Photo(R.drawable.food1, "2024-12-1"),
                 Photo(R.drawable.food2, "2024-12-2"),
                 Photo(R.drawable.food3, "2024-12-3"),
-                Photo(R.drawable.food4, "2024-12-4"),
-                Photo(R.drawable.food5, "2024-12-5")
+                //Photo(R.drawable.food4, "2024-12-4"),
+                //Photo(R.drawable.food5, "2024-12-5")
 
             )
         } else {
