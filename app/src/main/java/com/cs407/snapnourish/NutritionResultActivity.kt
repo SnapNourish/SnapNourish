@@ -20,6 +20,7 @@ class NutritionResultActivity : AppCompatActivity() {
     private val storage = FirebaseStorage.getInstance()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrition_result)
@@ -69,7 +70,9 @@ class NutritionResultActivity : AppCompatActivity() {
                     foodNameTextView.text = "Food: Burger"
 
                     // Set timestamp
-                    val timestamp = document.getTimestamp("timestamp")?.toDate()
+
+                    val timestamp = intent.getLongExtra("TIMESTAMP", System.currentTimeMillis())
+                    //val timestamp = document.getTimestamp("timestamp")?.toDate()
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                     timestampTextView.text = "Captured on: ${timestamp?.let { dateFormat.format(it) }}"
 
@@ -105,12 +108,12 @@ class NutritionResultActivity : AppCompatActivity() {
                     val missingNutrientsText = missingNutrients?.entries?.joinToString("\n") { (key, value) ->
                         "$key: $value g"
                     } ?: "No missing nutrients."
-                    missingNutrientsTextView.text = "Missing Nutrients:\n$missingNutrientsText"
+                    missingNutrientsTextView.text = missingNutrientsText
 
                     // Set recommended ingredients
                     val recommendIngredients = document.get("recommendIngredients") as? List<String>
                     val recommendIngredientsText = recommendIngredients?.joinToString("\n") ?: "No recommendations available."
-                    recommendIngredientsTextView.text = "Recommended Ingredients:\n$recommendIngredientsText"
+                    recommendIngredientsTextView.text = recommendIngredientsText
                 }
             }
             .addOnFailureListener {
