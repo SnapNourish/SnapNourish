@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/pink"
-        android:text="Go Sign up"
+        android:text="Sign up"
         android:onClick="goToSignUp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
